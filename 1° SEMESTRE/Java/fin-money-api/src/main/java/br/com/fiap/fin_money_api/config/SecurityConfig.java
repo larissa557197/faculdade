@@ -1,16 +1,13 @@
 package br.com.fiap.fin_money_api.config;
 
-import java.util.List;
+
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -19,12 +16,19 @@ public class SecurityConfig {
     // porque tem que achar um usuario em uma tabela do banco, não em memória
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        // define o filtro de segurança da aplicação (autorizações e autenticações)
         return http.authorizeHttpRequests(
-            auth -> auth 
+            auth -> auth
                 //.requestMatchers("/categories/**").hasRole("ADMIN")
+
+                // todas as requisições devem estar autenticadas
                 .anyRequest().authenticated()
         )
+        // desabilita o CSRF (evita erros em requisições POST sem token CSRF)
+        .csrf(csrf -> csrf.disable())
+        // usa autenticação básica (usuário e senha no cabeçalho da requisição)
         .httpBasic(Customizer.withDefaults())
+        // contrói o filtro de segurança
         .build();
     }
     
@@ -48,9 +52,11 @@ public class SecurityConfig {
     // }
 
 
+
     // quando precisar do passwordEncoder vai retornar nessa criptografia
     @Bean
     PasswordEncoder passwordEncoder(){
+        // retorna um codificador de senha usando algoritmo BCrypt
         return new BCryptPasswordEncoder();
     }
 
