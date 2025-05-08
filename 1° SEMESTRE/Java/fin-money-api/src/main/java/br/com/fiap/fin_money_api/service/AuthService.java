@@ -16,15 +16,21 @@ import br.com.fiap.fin_money_api.repository.UserRepository;
 @Service
 public class AuthService implements UserDetailsService  {
 
+    // injeta automaticamente o repositório de usuários para acessar dados no banco
     @Autowired
     private UserRepository repository;
 
-    // metodo obrigatório
+    
+    // metodo obrigatório -> implementa o método loadUserByUsername da interface UserDatailsService
+    // esse método é responsável por carregar os detalhes de um usuário com base no nome de usuário (email)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        // ensinar o spring a encontrar os dados do usuário
+       // tenta encontrar um usuário no banco pelo email(username)
+       // se não encontrar, lança uma exceção de usuário não encontrado
        return repository.findByEmail(username).orElseThrow(
-        () -> new UsernameNotFoundException("usuário não encontrado")
+        // mensagem de erro personalizada caso o usuário não seja encontrado 
+       () -> new UsernameNotFoundException("usuário não encontrado")
        );
 
     }
