@@ -1,0 +1,6 @@
+az --version
+
+
+https://learn.microsoft.com/pt-br/cli/azure/install-azure-cli-windows?pivots=winget
+# pra instalar
+winget install --exact --id Microsoft.AzureCLI --version 2.67.0

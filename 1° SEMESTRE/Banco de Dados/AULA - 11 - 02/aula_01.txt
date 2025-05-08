@@ -1,0 +1,136 @@
+MASTERING RELATIONAL AND NON-RELATIONAL DATABASE
+
+- dados tem que estar acurados: ou seja, ser uma coisa real
+- dados tem que ter consistencia: se eu falar que tem 200 reais na conta, tem que ter, a n ser que tenha alguma operação
+
+- coisas iguais que podem escrever de formas diferentes
+- quando tiver a possibilidade de ter uma duplicidade, transformar o atributo em uma tabela
+
+AULA 1:
+- Revisão de SQL:
+
+-- DQL
+-- DML
+-- DDL: 
+   - create, alter, drop
+   - 
+-- DCL
+-- DTL
+
+-- Normalização: 
+
+--- 1) toda tabela tem que ter no minimo PK, ai pode ser simples ou composta
+--- 2) todos os atributos tem que ser dependentes da PK, na tabela cliente só tem que ter coisas relacionadas a cliente, nao pode ter tipo um produto la no meio
+	- como resolver:
+	- tem outras tabelas pra se relacionar e resolver
+--- 3) não pode ter atributos compostos ou transitórios
+       - porque:
+         - para evitar a duplicidade de dados
+
+
+                           --------- conceitual: regras de negócio
+			   |
+--- criando a modelagem ------------- lógico: modelo no datamodel, aplicar esse modelo em qualqer banco de dados, respeitando a normalização e as cardinalidades
+                           |
+                           --------- relacional: 
+
+
+- Programando dentro do SQL
+
+- GITHUB:
+-- criamos um novo repositório
+-- tem um ppt sobre
+-- depois geramos um token:
+    - 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
+     - em casa só precisa de uma vez, mas na faculdade vai ser preciso colocar toda vez
+
+-- No oracle developer:
+   - team
+   - clone
+   - nome do repositório
+   - link do repositório
+   - nome do github ou email
+   - token criado
+   - browse
+   - procura a pasta no D, nesse caso o oracle
+   - avança
+   - finish
+   - Database Tier
+     - Database Files
+     - OK
+     - escolhe um nome pro arquivo (aula_01_revisao_ddl)
+     - browse
+     - escolhe a pasta 'oracle' no D e a pasta criada q no caso foi 'PL-SQL'
+
+-- depois de fazer o código, pra colocar no github:
+--- entrar em view
+--- files
+    - my computer
+      - pasta : PL-SQL, botao direito, versoning, add all
+                                        |
+                                        -------- commit all + comentario
+                                        |
+                                        --------- push , next... finish
+
+                                       
+
+CÓDIGO - HOJE:
+-- CTRL + F7 = deixa bonitinho a tabela
+
+/*
+DROP TABLE pais;
+DROP TABLE estado;
+DROP TABLE cidade;
+DROP TABLE end_cliente;
+*/
+
+CREATE TABLE pais (
+    id_pais   NUMBER,
+    nome_pais VARCHAR2(30) -- não vamos testar em outro banco
+);
+
+CREATE TABLE estado (
+    id_estado   NUMBER PRIMARY KEY,
+    nome_estado VARCHAR2(30),
+    id_pais NUMBER
+);
+
+-- tava dando erro aqui
+ALTER TABLE estado
+    ADD CONSTRAINT fk_estado FOREIGN KEY ( id_pais )
+        REFERENCES pais ( id_pais );
+
+CREATE TABLE cidade (
+    id_cidade   NUMBER PRIMARY KEY,
+    nome_cidade VARCHAR2(30),
+    id_estado   NUMBER
+);
+
+ALTER TABLE cidade
+    ADD CONSTRAINT fk_cidade FOREIGN KEY ( id_estado )
+        REFERENCES estado ( id_estado );
+        
+CREATE TABLE bairro (
+    id_bairro   NUMBER PRIMARY KEY,
+    nome_bairro VARCHAR2(30),
+    id_cidade   NUMBER
+);
+
+ALTER TABLE bairro
+    ADD CONSTRAINT fk_bairro FOREIGN KEY ( id_cidade )
+        REFERENCES cidade ( id_cidade );
+        
+CREATE TABLE end_cliente (
+    id_endereco NUMBER PRIMARY KEY,
+    cep         NUMBER,
+    logradouro  VARCHAR2(50),
+    numero      NUMBER,
+    complemento VARCHAR2(50),
+    id_bairro   NUMBER
+);
+
+ALTER TABLE end_cliente
+    ADD CONSTRAINT fk_end_cliente FOREIGN KEY ( id_bairro )
+        REFERENCES bairro ( id_bairro );
+
+      

@@ -1,0 +1,91 @@
+
+-> AULA 01 <-
+
+COMPLIANCE, QUALITY ASSURANCE & TESTS
+
+-- **CHALLENGE: PLUSOFT** --
+
+    * PROFESSOR: Paulo Sampaio
+	|
+	--------> profpaulo.sampaio@fiap.com.br
+
+- processo de desenvolvimento de software
+- qualidade de software
+	|
+	----> relativa/subjetiva
+
+    * CONTEÚDO:
+
+	-> EMENTA:
+
+	     -> qualidade de sfot e governancia -- full stack
+	     -> projeto de soft -- projeto de desenvolviento de um soft
+	     -> métricas -- pra determinar a qualidade do soft
+	     -> modelos de maturidade -- padronização, identificar os 
+	        modelos de padrão de qualidade de soft e como as emrpesas 
+	        usam (nacional/iinternacional)
+	     -> testes de software**** 
+             -> documentação software***
+	      
+	-> OBJETIVOS:
+
+		- conhecer as tecnicas sobre o processo de produção de soft 
+		  e garantir a qualidade do produto final e o desempenho adequado 
+		  do processo de negócio envolvido 
+		- conhecer e aplicar controles sobre processos de produção de soft
+		  para adm adequadamene a eficacia, eficiencia e efetividae e gerar 
+		  um produto de soft que cumpra com os objetivos da qualidade, atendedo 
+		  as necessidade de patrocinadores, clientes e equipes que cuidarão da 
+		  sustentação do produto
+		- saber quais são as necessidades de negócio que vou desenvolver
+		- adquirir conhecimeto fundamental  para participar de processos 
+		  de auditoria da qualidade para certificação ou dentro de um 
+	          programa de melhoria contínua
+		- oferecer os fundamentos preparatórios para certificações 
+		  internacionais de profissionais especializados em testes 
+		  e qualidade de sft
+
+	-> COMPETÊNCIAS:
+
+		- desenvolver o plano de qualidade dentro de um planejamento 
+		  de projetos integrado, de forma a garantir a governança, 
+		  aplicando SCRUM e COBIT
+		- desenhar uma solução com arquitetura tecnológica, de dados 
+		  e aplicaçãõ de soft alinhadas com estratégia empresariais, 
+		  aplicando TOGAF-ADM		
+			- TOGAF-ADM: é um método de desenvolvimento de arquitetura 
+		  	  corporativa que define uma sequência de fases e etapas 
+		  	  para criar conhecimento
+
+
+
+	-> HABILIDADES:
+
+	-> METODOLOGIA:
+
+		- Leitura e Compreensão da Apostila Central
+		- Aulas dinâmicas com desenvolvimento permanente de disicplina
+		- Utilização 
+		- Utilização
+		- Práti
+
+
+	-> CONTEUDO:
+
+		- 1º SEMESTRE:
+
+			- Unidade I: conceitos de qualidade, governancia 
+			- Unidade II: gestão do processo produtivod de soft
+				|
+				---> arquietura de soluções: TOGAF-ADM 
+			- Unidade III: mpetricas de estimativa de complexidade de soft
+		
+		- 2ºSEMESTRE:
+
+			- Unidade IV: 
+			- testes funcionais de sistemas com automação
+
+
+
+
+								

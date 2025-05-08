@@ -1,0 +1,49 @@
+CLOUD
+- uma forma de virtualização de dados
+- é uma tecnologia que permite acesso remoto 
+  a softwares, armazenamento de arquivos e 
+  processamento de dados por meio da internet.
+
+
+- maquina virtual -> virtual box
+- linux
+- azure boards
+- portal azure
+  - ao inves de criar a maquina virtual no  virtual box, 
+    pode fazer no azure
+
+SAAS -> software como serviço
+	-> tudo que eu acesso
+        -> Visual Studio Code
+	-> Visual Studio
+	-> Oracle Developer
+	-> Word
+	-> Site da fiap
+PAAS -> plataforma
+	-> Oracle - servidor
+	-> ICLOUD 
+IAAS -> infraestrutura
+	-> sistema operacional
+	-> controlo a rede
+	-> controlo tudo nela
+	-> se voce nao ver
+
+HAAS: hardware como infraestrutura
+	-> contratação de equipamentos físicos
+	-> contratação e disponibilização de hardware remotamente
+	-> tudo que eu alugar
+	-> máquininha de cartão
+	-> 
+
+LIFT SHIFT:
+    - migração das maquinas fisicas pra nuvem
+
+--- 
+- criando um grupo de recursos
+ - nome_rm
+
+1. criar um recurso - máquina virtual - criar
+
+
+-- parar a maquina
+- 

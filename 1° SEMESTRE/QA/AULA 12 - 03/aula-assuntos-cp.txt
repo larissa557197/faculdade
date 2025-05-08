@@ -1,0 +1,141 @@
+
+
+	- assunto do cp -
+encima da ISO9126
+    - familia da gestão de qualidade:
+	- conceituar a qualidade de produto de soft
+	- overwiew sobre normas relacionadas a qualidade de produt de soft (fml ISO)
+        - entender os conceitos básicos relacionados a métricas de soft
+      
+	familia ISO:
+	    - International Organization for Standardization
+	    - padronização internaiconal
+	    - cetifica a empresa nao o profissional
+
+ -------------------------------
+ |qualidade de produto de soft |
+ -----------------------------
+ - produto de soft
+   - sistema com uma ou mais funcionalidades 
+   - tipo ser um app
+   - um produto de soft compreende os programas
+     e procedimentos de compuador, documentaçao 
+     e dados associados, que foram projetados para
+     serem liberados p o usuario
+
+ - qualidade do prodt de soft
+   - boa fabricação
+   - bom desempenho
+   - utilizável em diversas plataformas 
+   - fácil de usar
+   - sem defeitos
+
+ - qualidade:
+   - a qualidade do produto está diretamente proporcional à qualidade do processo de desenvolvimento
+     - melhorias no proceso de desenvolvimento => soft de melhor qualidade
+    
+   - subjetiva
+   - abstrata
+   - - - - - - - - - - - 
+   - estabelencendo métricas e indicadores -> quantificavel
+
+
+ - o que o cliente quer:
+   - preço bom
+   - que atende as necessidades
+   - atenda as minhas expectativas
+   - longo prazo
+   - conformidades
+   - - - - - - - - - - - 
+   - defeito ZERO -> unico elemento quantitativo
+   - atendimento aos requisitos especificados
+   - alto desempenho
+   - baixo custo
+   - desenvolviemnto rápido
+   - facilidade de uso
+   - eficiência nos serviços associados
+
+- ATRIBUTOS
+
+- funcionalidade => satisfaz às necessidades? :
+
+  - define o grau c q o soft satisfaz as funcionaçidsdes estabelecidas
+    
+	- adequação:
+          - as funcionalidades satisfazem as necessidades
+    	- acurácia: 
+          - o qnt o soft é exato em seus resultados
+    	- segurança: 
+          - capacidade do sftw proteger as informações
+
+- confiabilidade => é imune a falhas? :
+
+  - define a capacidadede um soft manter suas capacidades operacionais, 
+    dentro do desempenho estabelecido
+
+    - Maturidade:
+      - o quanto o soft se encontra livre de defeitos
+
+    - Tolerância a falhas:
+      - capacidade de manter um nível operacional adequado, 
+        mesmo quando falhas ocorram
+
+    - Recuperabilidade:
+      - capacidade de manter a integridade dos dados e 
+        reestabelecer seu nível operacional no caso de falha
+
+- usabilidade => é facil de usar? :
+
+  - efine o esforço que deve ser despendido pelo usuário
+    no processo de aprendizagem e operação do soft
+    
+    - inteligibilidade: 
+      - facilidade de compreender as funcionalidades
+        do sftw e se este atende às necessidades do usuário
+
+    - operacionalidade: 
+      - especifica o esforço q deve ser dispendido 
+        pelo usuário para operar o soft
+
+- eficiência => é rápido e otimizado? :
+
+  - determina a relação entre a qtd de recursos q devem ser 
+    direcionados p a operação do soft, os tempos envolvidos 
+    nesta operação e os resultados obtidos
+
+    - comportamento em relação ao tempo:
+      - avalia-se o tempo de resposta às solicitações enviadas a
+        o soft estão dentro dos critérios preestabelecidos
+    - comportamento em relação aos recursos:
+
+- manutenibilidade => é fácil de modificar? :
+
+  - estabelece a capacidade que um soft possui em sofrer alterações
+
+    - estabilidade:
+
+      - risco da ocorrência de feitos não esperados decorrentes de 
+        alterações no sft
+    - testabilidade:
+      - quantidade...
+
+- portabilidade => é fácil de usar em outro ambiente? :
+
+  - estabelece a capacidade q um soft possui de ser tranferido de
+    um ambiente operacional p outro
+
+    - adaptabilidade: capacidade q um soft possui de se adaptar 
+      a diferentes ambientes operacionais
+
+    - coexistencia: capacidade q um soft possui em operar de
+      modo simultaneo com outras aplicações
+
+
+	- CHECKPOINT- 
+        - grupo do challenge 
+        - como avaliar a qualidade d eum sft
+        - se colocar como funcionario da empresa
+        - cenário 1:
+          - considere qeu sua equipe trabalha em uma empresa q vai adquirir um novo sft p a folha de pagamento
+        - 2: n lembro
+        - relatorio tecnico falando o pq uma emrpesa é mlr doq a outra e dps fazer meio que um texto

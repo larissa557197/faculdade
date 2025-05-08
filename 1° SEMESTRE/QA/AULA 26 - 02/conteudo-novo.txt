@@ -1,0 +1,48 @@
+
+
+GOVERNÂNCIA DE TI:
+- COBIT - ITIL - 
+ambos tem certificação, e principalmente fazer a de itil
+
+- gorvernacia corporativa:
+     -> o que nao se pode medir, nao se pode controlar - Peter Drucker
+     -> as boas práticas de governaça corporativa tem a finalidade de 
+        aumentar o valor da sociedade, facilitar seu acesso ao capital 
+        e contribuir quanto à sua estabilidade financeira (IBGE)
+     -> servidor de espelho: tem dois servidores que fazem a mesma coisa, tudo que é atualizado em um servidor, é atualizado no outro também
+     -> é o conjunto de práticas, padroes e relacionamentos estruturados com a finalidade de estabelecer processos, procedimentos e controles
+        a fim de minimizar/mitigar os riscos, ampliar o deseempenho =, oimizar a aplicação de recursos, reduzir os custos, suportar as melhores
+        decisões e consequentemente alinhar TI aos negociso
+     -> ITL: biblioteca de infrmações de ti, responsável pela gestão
+             - como voce deve implementar
+	     - aproxiam ti de negocios
+	     -  maior agilidade para atender mudnaças
+	     - melhor visibilidade de custos e ROI
+	     - melhoria de qualidade quanto ao atendimento dos niveis de serviço, disponibilifsfr, entrega de serviços ...
+	     - exemplos de serviços:
+
+1. chamados que são abertos
+2. controle de mudança
+3. 
+4. controle de lançamento
+5. gestão de configuração
+
+	gestão x governacia
+        
+
+     -> COBIT: responsável pela governância
+               - o que precisa ser fieto nas empresas 
+               - atender as necessidades dos clientes
+               - cobrir a empresa de ponta a ponta
+               - aplicar um framework unico
+               - permitir uma abordagem mais ampla
+               - distiguir a governança da gestão
+     -> CMMI: 
+
+     -> PMBOK/AGILE
+        - modelo preditivo
+
+     -> SIX SIGMA
+
+* acordo de nivel de serviço (SLA: Service Level Agreement)
+  - 

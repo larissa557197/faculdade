@@ -1,0 +1,455 @@
+RESUMO BANCO DE DADOS PL-SQL
+
+DICAS GERAIS
+1 - SEMPRE declarar variáveis antes de usá-las
+	
+2 - Usar SELECT INTO quando precisar ARMAZENAR um valor de uma consulta SQL em uma variável
+	SELECT coluna INTO variável FROM tabela WHERE condição;
+
+3 - Utilizar FOR LOOP para percorrer registros retornados por uma consulta
+	FOR i IN (SELECT * FROM tabela WHERE condição) LOOP
+		dbms_output.put_lne(i.coluna);
+	END LOOP;	
+
+4 - Evitar divisão por ZERO, verificando se há registros antes de calcular médias
+
+	
+5 - Usar NVL para evitar valores NULL, garantindo que operações matemáticas não falhem
+	SELECT NVL (coluna, 0) INTO variável FROM tabela;
+
+6 - JOINs são utéis para combinar informações de múltiplas tabelas
+
+	INNER JOIN -> traz só os registros que existem em AMBAS as tabelas
+	LEFT JOIN -> traz TODOS da tabela principal e os correspondentes da secundária (se tive)
+	RIGHT JOIN -> prioriza a segunda tabela e tenta trazer os correspondentes da primeira 
+
+
+
+EXERCÍCIOS
+
+1 - Calcular o total de movimentações de estoque para um produto
+
+	O QUE ELE PEDE?
+
+		somar TODAS as movimentações de um determinado produto
+
+	COMO RESOLVER:
+
+		1 - Declarar uma variável para armazenar o total de movimentações 
+		2 - Fazer um SELECT SUM (qtd_movimentacao_estoque) filtrando pelo código do produto
+		3 - Usar SELECT INTO para armazenar o resultado na variável
+		4 - Exibe o valor usando o dbms_output.put_line();
+
+	CÓDIGO:
+
+		DECLARE
+			v_movimentacoes NUMBER; -- var p armazenar a soma
+			v_cod_prod NUMBER := 16; -- cod do produto
+
+		BEGIN
+			-- soma TODAS as movimentações do produto e armazena na var
+			SELECT SUM(qtd_movimentacao_estoque) INTO v_movimentacoes
+			FROM movimento estoque
+			WHERE cod_produto = v_cod_prod;
+
+			-- exibe o resultado
+			dbms_output.put_line('Produto: ' || v_cod_prod || 'Total de Movimentações: ' || v_movimentacoes);
+
+		END;
+
+	LEMBRAR:
+		se precisar armazenar um valor calculado a partir de um SELECT, usar o SELECT INTO
+
+2 -  Média dos valores totais dos pedidos para um cliente
+
+	O QUE ELE PEDE?
+
+		Calcular a média dos valores dos pedidos de um cliente
+
+	COMO RESOLVER:
+		
+		1 - Contar quantos pedidos o cliente tem (COUNT (*))
+		2 - Somar os valores dos pedidos (SUM(valor_total_pedido))
+		3 - Calcular a média (total pedidos / quantidade pedidos)
+		4 - Evitar divisão por zero (se n tiver pedidos)
+
+	CÓDIGO:
+		DECLARE
+			v_total_pedidos NUMBER := 0;
+			v_quant_pedidos NUMBER := 0;
+			v_cod_cliente 	NUMBER := 0;
+			v_media		NUMBER := 0;
+		BEGIN
+			SELECT COUNT(*), SUM(val_total_pedido)
+			INTO v_quant_pedidos, v_total_pedidos
+			FROM pedido
+			WHERER cod_cliente = v_cod_cliente;
+
+			-- evitando o erro de NULL
+			IF v_total_pedidos IS NULL THEN
+				v_total_pedidos : = 0;
+			END IF;
+
+			-- evita divisão por zero
+			IF v_quant_pedidos > 0 THEN
+				v_media := ROUND (v_total_pedidos / v_quant_pedidos, 2);
+				dbms_output.put_line('Cliente: ' || v_cod_cliente || '| Média de valores R$ ' || v_media);
+			ELSE
+				dbms_output.put_line('Cliente: ' || v_cod_cliente || ' não possui pedidos.');
+			END IF;
+		END;
+
+	LEMBRAR:
+
+		Sempre verificar se existe algo para calcular antes de dividir 
+		Se precisar contar registros, usar COUT(*)
+
+
+3 - Exibir produtos compostos ativos
+
+	O QUE ELE PEDE?
+
+		Listar todos os produtos compostos que estão ativos
+
+	COMO RESOLVER:
+		
+		1 - Fazer um SELECT pegando cod_produto e cod_produto_relacionado onde sta_ativo = 'S'
+		2 - Percorrer os resultados com FOR LOOP
+		3 - Exibir os valores com dbms_output.put_line
+
+	CÓDIGO:
+
+		BEGIN
+			FOR i IN (SELECT cod_produto_relacionado, cod_produto
+				  FROM produto composto
+				  WHERE sta_ativo = 'S')
+			LOOP
+				dbms_output.put_line('Produto Composto: ' || i.cod_produto_relacionado || ' | Produto: ' || i.cod_produto);
+			END LOOP;
+		END;
+
+	LEMBRAR:
+		Quando precisar percorrer uma lista de registros e exibir valores, usar o FOR LOOP
+
+4 - Total de movimentações de estoque com INNER JOIN
+
+	O QUE ELE PEDE?
+		Somar todas as movimentações de um produto, mas considerando apenas os tipos válidos da tabela tipo_movimento_estoque
+
+	COMO RESOLVER:
+		1 - Fazer um INNER JOIN entre movimento_estoque e tipo_movimento_estoque
+		2 - Filtrar pelo código do poduto
+		3 - Usar SUM(qtd_movimentacao_estoque)
+
+	CÓDIGO:
+		DECLARE
+			v_total_movimentacoes NUMBER := 0;
+			v_cod_prod NUMBER := 16;
+		BEGIN
+			SELECT SUM(qtd_movimentacao_estoque)
+			INTO v_total_movimentacoes
+			FROM movimento_estoque
+			INNER JOIN tipo_movimento_estoque
+			ON movimento_estoque.cod_tipo_movimento_estoque = tipo_movimento_estoque.cod_tipo_movimento_estoque
+			WHERE movimento_estoque.cod_produto = v_cod_prod;
+
+			dbms_output.put_line('Produto ' || v_cod_prod || ' | Total de Movimentações: ' || v_total_movimentacoes);
+		END;
+
+	LEMBRAR:
+		Usar o INNER JOIN quando precisar de informações de mais de uma tabela e quiser excluir registros que não têm correspondência
+
+5 - Produtos compostos e estoque -> LEFT JOIN
+
+	O QUE ELE PEDE?
+		exibir TODOS os produtos compostos e, se tiver, o estoque deles
+	
+	COMO RESOLVER:
+
+		1 - Usar o LEFT JOIN para garantir que mesmo sem estoque o produto seja listado
+		2 - Substitui valores NULL do estoque por 0
+
+	CÓDIGO:
+		BEGIN
+			FOR i IN  (
+				SELECT tbl_pc.cod_produto, tbl_ep.qtd_produto
+				FROM produto_composto tbl_pc
+				LEFT JOIN estoque_produto tbl_ep
+				ON tbl_pc.cod_produto = tbl_ep.cod_produto
+			) LOOP
+				IF i.qtd_produto IS NULL THEN
+					i.qtd_produto := 0;
+				END IF;
+				
+				dbms_output.put_line('Produto Composto: ' || i.cod_produto || ' | Estoque: ' || i.qtd_produto);
+			END LOOP;
+		END;
+	LEBRAR:
+		se precisar exbir TODOS os registros de uma tabela, memso sem correspondência na outra, usar LEFT JOIN
+
+6 - Pedidos e clientes -> RIGHT JOIN
+	
+	O QUE ELE PEDE?
+
+		Exibir informações de pedidos e, se tiver, as informações dos clientes
+
+	COMO RESOLVER:
+
+		1 - Seria um LEFT JOIN, porque queremos ver TODOS os clientes e seus pedidos se tiver
+	CÓDIGO:
+		FOR i IN (
+			SELECT c.cod_cliente, c.nom_cliente, p.val_total_pedido
+			FROM pedido p
+			RIGHT JOIN cliente c
+			ON p.cod_cliente = c.cod_cliente
+		   ) LOOP
+			IF i.val_total_pedido IS NULL THEN 
+				i.val_total_pedido := 0;
+			END IF;
+
+			dbms_output.put_line('Cliente: ' || i.cod_cliente || ' | Nome: ' || i.nome_cliente || ' | Valor Total Pedido: R$ ' || i.val_total_pedido);
+		    
+		     END LOOP;
+		END;
+
+	LEMBRAR: que normalmente é utilizado o left join
+
+7 - Média de pedidos + nome do cliente (INNER JOIN)
+	
+	O QUE ELE PEDE?
+
+		Exibir a média dos valores de pedidos e o nome do cliente
+
+	COMO RESOLVER:
+		1 - Usar o SUM() e o COUNT() para calcular a média de valores dos pedidos de um cliente
+		2 - Junta as tabelas pedido e cliente com INNER JOIN
+		3 - Exibe o nome do cliente junto com os dados
+		
+	CÓDIGO:
+		DECLARE
+			v_total_pedidos	NUMBER := 0;
+			v_quant_pedidos	NUMBER := 0;
+			v_media		NUMBER := 0;
+			v_cod_cliente	NUMBER := 88;
+			v_nom_cliente 	VARCHAR2(100);
+		BEGIN
+			SELECT SUM(p.val_total_pedido), COUNT(p.cod_pedido), c.nom_cliente
+			INTO v_total_pedidos, v_quant_pedidos, v_nome_cliente
+			FROM pedido p
+			INNER JOIN cliente c ON p.cod_cliente = c.cod_cliente
+			WHERE c.cod_cliente = v_cod_cliente
+			GROUP BY c.nome_cliente;
+
+			-- evitar o erro de NULL
+			IF v_total_pedidos IS NULL THEN
+				v_total_pedidos := 0;
+			END IF;
+
+			-- evitando divisão por zero
+			IF v_quant_pedidos > 0 THEN
+				v_media := v_total_pedidos / v_quant_pedidos;
+			END IF;
+
+			dbms_output.put_line('Cliente: ' || v_cod_cliente || ' | Nome: ' || v_nom_cliente || ' | Média de valores R$ ' || ROUD(v_media, 2))
+		END;
+	LEMBRAR:
+		Se precisar combinar tabelas e garantir que os registros existam em ambas, use INNER JOIN
+
+----------------------------------------------------------
+
+	| EXERCICIOS DA ÚLTIMA AULA |
+
+		1 - Montar um bloco de programação que realize o processamento de uma tabuada qualquer, por exemplo a tabuada do número 150.
+			
+
+			O QUE PEDE:
+
+				para criar um bloco de código que exiba a tabuada de um número qualquer
+
+			CÓDIGO:
+
+				DECLARE
+					numero NUMBER := &numero; -- recebe um número do usuário
+					contador NUMBER (2);
+
+				BEGIN 
+					FOR contador IN 1..10 LOOP
+
+						dbms_output.put_line(numero || ' X ' || contador || ' = ' || (numer * contador));
+
+					END LOOP;
+				END;
+
+			PASSO A PASSO:
+
+				1 - Declaramos as var:
+
+					- numero: recebe um numero do usuário (ex: 150)
+					- contador: representa os valores de 1 a 10 
+
+				2 - Usei um FOR LOOP: já controla o contador automaticamente, sem precisar incrementar manualmente
+					- ele repete de 1 até 10
+					- a cada repetição, ele exibe numero * contador 
+
+				3 - Saída:
+					150 x 1 = 150
+					150 x 2 = 300
+					150 x 3 = 450
+					...
+					150 x 10 = 1500
+
+
+		2 - Em um intervalo numérico inteiro, informar quantos números são pares e quantos são ímpares.
+			
+
+			O QUE PEDE?
+				percorrer um intervalo de números e contar quantos são pares e quantos são ímpares
+
+			CÓDIGO: 
+				DECLARE
+					num_par 	NUMBER := 0; -- contador de nº pares
+					num_impar 	NUMBER := 0; -- contador de nº impares
+				BEGIN
+					FOR num IN 1..55 LOOP -- loop de 1 até 55
+						IF MOD(num, 2) = 0 THEN  -- se o número for divisível por 2, é par
+							num_par := num_par + 1;
+						ELSE -- caso o contrario, é impar
+							num_impar := num_impar + 1;
+						END IF;
+					END LOOP;
+					-- exibindo os resultados
+					dbms_output.put_line('A QTD DE NºS PARES É: ' || num_par)
+					dbms_output.put_line('A QTD DE NºS IMPARES É: ' || num_impar)
+				END;
+
+			PASSO A PASSO:
+
+				1 - Declaramos duas var:
+
+					- num_par : conta quando nº são pares
+					- num_impar : conta quantos nº são impares 
+
+				2 - FOR LOOP para percorres os números de 1 até 55:
+					-  a cada número num, verificamos:
+						- se MOD(num, 2) -> é divisível por 2 -> par
+						- caso o contrário, impar
+				3 - Sáida
+					A QTD DE NºS PARES: 27
+					A QTD DE NºS IMPARES: 28
+
+
+		3 - Exibir e média dos valores pares em um intervalo numérico e soma dos ímpares.
+
+			O QUE PEDE?
+
+				- calcular a média dos números pares dentro de um intervalo
+				- calcular a soma dos números impares dentro do mesmo intervalo
+
+			CÓDIGO:
+
+				DECLARE
+					valor_inicio 	NUMBER := %valor1; -- inicio do intervalo
+					valor final	NUMBER := %valor2; -- fim do intervalo
+					soma_pares 	NUMBER := 0; -- soma dos números pares
+					cont_pares 	NUMBER := 0; -- contador de números pares
+					soma_impares 	NUMBER := 0; -- soma dos números impares
+					meida_pares 	NUMBER := 0; -- media dos números pares
+				BEGIN
+					FOR num IN valor_inicio..valor final LOOP -- percorre o intervalo
+
+						IF MOD(num, 2) = 0 THEN -- se for par
+							soma_pares := soma_pares + num; -- soma os pares
+							cont_pares := cont_pares + 1; -- conta os pares
+						ELSE -- se for impar 
+							soma_impares := soma_impares + num; -- soma os impares
+						END IF;
+					END LOOP;
+
+					-- calcula a média dos pares (evitando divisão por 0)
+					IF cont_pares > 0 THEN
+						media_pares := soma_pares / cont_pares
+					END IF;
+
+					-- exibindo os resultados
+
+					dbms_output.put_line('VALOR INICIAL: ' || valor_inicio);
+					dbms_output.put_line('VALOR FINAL: ' || valor_final);
+					dbms_output.put_line('Média dos números pares: ' || media_pares);
+					dbms_output.put_line('Soma dos números ímpares: ' || soma_impares);
+				END;
+
+
+			PASSO A PASSO:
+
+				- Variáveis declaradas:
+
+					valor_inicio e valor_final: Definem o intervalo de números.
+					soma_pares: Acumula a soma dos números pares.
+					cont_pares: Conta quantos pares existem (para calcular a média).
+					soma_impares: Acumula a soma dos números ímpares.
+					media_pares: Guarda a média dos pares.
+
+				- Percorre o intervalo de valor_inicio até valor_final com um FOR LOOP.
+
+					Se MOD(num, 2) = 0, é par → soma e conta.
+					Se não, é ímpar → apenas soma.
+
+				- Cálculo da média dos pares:
+
+					Só fazemos soma_pares / cont_pares se cont_pares > 0 (para evitar erro de divisão por zero).
+
+				- Saída:
+
+					Se escolhermos valor1 = 10 e valor2 = 20, o código faz:
+
+					Números pares: 10, 12, 14, 16, 18, 20 → Soma = 90
+					Média dos pares: 90 / 6 = 15
+					Números ímpares: 11, 13, 15, 17, 19 → Soma = 75
+
+					VALOR INICIAL: 10
+					VALOR FINAL: 20
+					Média dos números pares: 15
+					Soma dos números ímpares: 75
+
+				
+
+		4 -  Exibir os múltiplos de 3 em um intervalo numérico 
+			
+			O QUE PEDE?
+				Esse exercício pede para percorrer um intervalo de números e exibir apenas os múltiplos de 3.  
+
+			CÓDIGO:
+
+				DECLARE
+		    			valor_inicio NUMBER := &valor1; -- Solicita ao usuário um valor inicial
+    					valor_final  NUMBER := &valor2; -- Solicita ao usuário um valor final
+				BEGIN
+				    FOR num IN valor_inicio..valor_final LOOP
+				        IF MOD(num, 3) = 0 THEN
+				            dbms_output.put_line(num || ' é múltiplo de 3');
+        				END IF;
+				    END LOOP;
+				END;
+
+			PASSO A PASSO: 
+
+				1. Declaração das variáveis:
+   					- valor_inicio e valor final -> representam os limites do intervalo.
+   					- O símbolo & ->  o valor será inserido pelo usuário antes da execução.  
+
+				2.  FOR:  
+   					- Percorre todos os números de valor_inicio até valor_final.  
+
+				3. Verificação de múltiplos de 3: 
+   					- `MOD(num, 3) = 0` verifica se o número é divisível por 3 sem resto.  
+   					- Se for verdadeiro, o número é exibido com `dbms_output.put_line`.  
+
+				4 - Saída:
+
+					Se o usuário inserir `1` como `valor1` e `10` como `valor2`, a saída será:  
+
+					3 é múltiplo de 3		
+					6 é múltiplo de 3
+					9 é múltiplo de 3
+
+ 

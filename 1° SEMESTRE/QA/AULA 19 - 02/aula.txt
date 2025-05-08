@@ -1,0 +1,59 @@
+
+- FLEKS - 
+- criação de valor sustentável
+- faz a intersecção entre lean predativo 
+  - usadas juntas 
+
+CONTEÚDO:
+
+  - lean de gestão:
+- otimização processos e redução de desperdicio
+       - na ÁSIA: toyota
+       - melhorar processos, evitar disperdicio, reduzir a burocracia e o custo adicional
+       - produção inchuta
+       - conduzir as pessoas com respeito
+       - minimiza desperdícios
+       - otimizar processos
+       - busca cortar custos e aumentar a qualidade
+       - colocar as pessoas como valores centrais
+       - trata de respeito às pessoas e prceiros, liderança
+       - implementação, avaliação e melhoria de todos os processos necessários para criar valor, 
+         bem como todas as ferramentas e técnicas necessárias para executá-los em um fluxo sustentável
+       - resolução de problemas, valorizando a humanidade
+       - valor sustentável: fluxo continuo e sustentavel de valor criado pela orgainização e seus parceiros
+    - melhoria de processos:
+      - mobilizar: definir o dono do processo e a equipe de melhoria
+      - mapear: mapear o processo como ele é, no momento, suas interfaces e o valor que ele gera
+      - otimizar: identificar desperdícios, perdas, modelar os estado futuro, definir metas e métricas
+      - implementacao: planejar ações necessárias e implementá-las adequadamente
+      - medição: medir os resultados e reiniciar o ciclo continuamente
+
+  - Método Preditivo:
+    - planajemento em série 
+    - planejamento -> execução -> entrega -> revisão -> encerramento
+    - geralmente utilizado quando há uma definição bem próxima do que
+      deve ser feito, e o produto ou serviço tem certo grau de estabilidade
+    - dependendo de como se inicia, o trabalho planejado pode ser entregue 
+      a um usuario final somente quando tiver totalemtne concluido
+   - escopo definido e cronograma
+
+  - Método Adaptativo: 
+
+   visão do produto             -> backlog do produto -> backlog da sprint -> voltinha -> incremento do produto
+  entende o problema do cliente ->  
+
+   - utilizando quando há grande INCERTEZA sobre o que deve ser feito e, portanto, os planos de longo prazo são inadequados
+   - em iniciativas em que são necessários feedbacks frequentes ... stakeholdes para desenvolver um porduto ou serviço, 
+     a melhor forma de fazê-lo é escolher um modelo EMPÍRICO e trabalhar de forma ITERATIVA
+ - flexibilidade e processos iterativos - repetidos
+
+  - clássicos e ágeis:
+       - preditivos e ágeis
+
+
+- Modelo FLEKS:
+  - baseado na utilizaçao do modelo preditivo adaptativo e lean
+
+  - FLEKS - verdades:
+  - FLEKS - framework:
+       - modelo de referência

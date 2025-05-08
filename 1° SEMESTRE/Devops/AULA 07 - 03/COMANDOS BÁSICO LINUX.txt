@@ -1,0 +1,26 @@
+COMANDOS BÁSICO LINUX
+
+mkdir -> 
+
+saber onde eu to -> pwd
+ls -> arquivos que tem na pasta
+who -> com qual usuário vc ta fzd os comandos
+cd área\ de\ trabalho \ -> acessar a área de trabalho
+man ls -> mostra pra q sever 
+acessar um arquivo:
+ls *.txt
+acessa uma pasta: ls *nasa
+
+salvar o arq:
+vi nome_arq
+CTRL + C
+:w + ENTER
+
+criar um alias:
+alias fiap= 'ls *.txt'
+alias limpar = 'clear'
+
+
+
+--------------------------------
+C0NCEITOS CLOUD
