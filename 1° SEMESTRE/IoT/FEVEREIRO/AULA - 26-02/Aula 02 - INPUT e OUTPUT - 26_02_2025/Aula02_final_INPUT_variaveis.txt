@@ -1,0 +1,70 @@
+// Atribuir nomes aos pinos
+// Botões 1 e 2
+#define BT1 8
+#define BT2 9
+// LEDs 
+#define ledB 2
+#define ledW 3
+#define ledR 4
+
+// bool statusBT1; 
+
+int contador; // variável do tipo inteiro ---> 2^16 = 65.536 (64k)
+
+void setup() {
+  Serial.begin(9600);
+  // Configurar o sentido dos pinos de I/O
+  pinMode(BT1, INPUT);
+  pinMode(BT2, INPUT);
+  pinMode(ledB, OUTPUT);
+  pinMode(ledW, OUTPUT);
+  pinMode(ledR, OUTPUT);
+}
+
+void loop() {
+
+  bool statusBT2 = digitalRead(BT2); 
+  
+  if(statusBT2 == HIGH){
+    contador++;
+    Serial.print("Contador: ");
+    Serial.println(contador);
+    delay(200);
+  }
+
+  bool statusBT1 = digitalRead(BT1); 
+  
+  if(statusBT1 == HIGH){
+    Serial.println("BT1 Ligado!!");
+  // if(digitalRead(BT1) == HIGH){
+    piscaRB();
+  } 
+  else{
+    piscaW();
+  } 
+}
+
+void piscaRB(){
+  digitalWrite(ledB, HIGH);
+  digitalWrite(ledR, LOW);
+  delay(250);
+  digitalWrite(ledR, HIGH);
+  digitalWrite(ledB, LOW);
+  delay(250);  
+}
+
+void piscaW(){
+  digitalWrite(ledR, LOW);
+  digitalWrite(ledW, HIGH);
+  delay(350);
+  digitalWrite(ledW, LOW);
+  delay(350);
+}
+
+
+
+
+
+
+
+

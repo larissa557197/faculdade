@@ -1,0 +1,37 @@
+
+
+
+
+Sequência:
+1. Conectar o DOIT ESP32 DEVKIT V1 
+
+2. Abrir Arduino IDE, escolher placa e porta (COM5)
+2.1. Configurar velocidade do Serial Monitor para 115.200 bps
+
+3. Carregar na placa o exemplo do teste WiFi e testar
+
+4.1 Instalar biblioteca ThingSpeak 
+4.2 Testar o exemplo WriteMultipleFields no ThingSpeak
+
+
+EXERCÍCIO
+
+API de Cotações de Moedas
+https://economia.awesomeapi.com.br/last/USD-BRL,EUR-BRL,BTC-BRL
+
+Extrair as cotações (bid):
+Dólar, Euro e BITCOIN
+
+Adaptar o código atual do Open Weather Map para obter as cotações.
+
+
+
+
+
+
+
+
+
+
+
+

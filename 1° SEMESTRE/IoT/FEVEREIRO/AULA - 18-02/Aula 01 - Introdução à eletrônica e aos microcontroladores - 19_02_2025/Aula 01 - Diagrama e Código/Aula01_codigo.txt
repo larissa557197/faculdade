@@ -1,0 +1,59 @@
+/*
+Exemplo 1:
+Os três LEDs deverão piscar simultaneamente em intervalos
+de 300ms.
+Exemplo 2: 
+Os LEDs vermelho e verde deverão piscar alternadamente
+em intervalos de 400ms.
+Exemplo 3:
+Crie um código para simular um semáforo:
+Verde ---> 4 segundos  
+Amarelo ----> 1 segundo
+Vermelho ----> 6 segundos
+*/
+
+// Atribuição de nomes aos pinos dos LEDs
+#define ledRED 4
+#define ledYEL 6
+#define ledGRE 12
+
+void setup() {
+  // Configuração dos pinos dos LEDs
+  // como saída (OUTPUT)
+  pinMode(ledRED, OUTPUT);
+  pinMode(ledYEL, OUTPUT);
+  pinMode(ledGRE, OUTPUT);
+}
+
+void loop() {
+  ex1();
+  // ex2();
+}
+
+//Exemplo 1:
+//Os três LEDs deverão piscar simultaneamente em intervalos
+//de 300ms.
+void ex1(){
+  digitalWrite(ledRED, HIGH);
+  digitalWrite(ledYEL, HIGH);
+  digitalWrite(ledGRE, HIGH);
+  delay(300);
+  digitalWrite(ledRED, LOW);
+  digitalWrite(ledYEL, LOW);
+  digitalWrite(ledGRE, LOW);
+  delay(300);
+}
+
+void ex2(){
+
+}
+
+void ex3(){
+
+}
+
+
+
+
+
+

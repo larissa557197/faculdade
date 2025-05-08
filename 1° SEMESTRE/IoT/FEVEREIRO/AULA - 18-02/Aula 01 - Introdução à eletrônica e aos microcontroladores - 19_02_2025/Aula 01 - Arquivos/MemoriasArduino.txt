@@ -1,0 +1,6 @@
+Memória de programa (FLASH) ---> Não Volátil ---> armazena o FIRMWARE
+(32KB)
+Memória de dados (RAM) ---> Volátil ----> armazena as variáveis...
+(2KB)
+Memória de dados (EEPROM) ---> Não Volátil ----> armazena dados
+(1KB)
