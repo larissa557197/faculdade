@@ -2,11 +2,11 @@ package br.com.fiap.fin_money_api.controller;
 
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -41,6 +41,7 @@ public class CategoryController {
     @Operation(summary = "Listar categorias", description = "Retorna um array com todas as categorias")
     @Cacheable("categories")
     public List<Category> index(@AuthenticationPrincipal User user) {
+        // retorna todas as categorias do usuário autenticado
         return repository.findByUser(user);
     }
 
@@ -50,20 +51,26 @@ public class CategoryController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public Category create(@RequestBody @Valid Category category, @AuthenticationPrincipal User user) {
         log.info("Cadastrando categoria " + category.getName());
+        // vincula a categoria ao usuário logado
         category.setUser(user);
+        // salva no banco e retorna a categoria criada
         return repository.save(category);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Category> get(@PathVariable Long id) {
+    public ResponseEntity<Category> get(@PathVariable Long id, @AuthenticationPrincipal User user) {
         log.info("Buscando categoria " + id);
-        return ResponseEntity.ok(getCategory(id));
+        // busca e retorna categoria por id  
+        return ResponseEntity.ok(getCategory(id, user));
     }
 
+
     @DeleteMapping("{id}")
-    public ResponseEntity<Category> delete(@PathVariable Long id) {
+    public ResponseEntity<Category> delete(@PathVariable Long id, @AuthenticationPrincipal User user) {
         log.info("Deletando categoria " + id);
-        repository.delete(getCategory(id));
+        // busca e deleta a categoria do banco 
+        repository.delete(getCategory(id, user));
+        // retorna HTTP 204 (sem conteúdo) 
         return ResponseEntity.noContent().build();
     }
 
@@ -71,25 +78,27 @@ public class CategoryController {
     public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody @Valid Category category, @AuthenticationPrincipal User user) {
         log.info("Atualizando categoria " + id + " com " + category);
 
-        getCategory(id, user);
-        category.setId(id);
-        category.setUser(user);
-        repository.save(category);
-        return ResponseEntity.ok(category);
+        var oldCategory = getCategory(id, user);
+        //category.setId(id);
+        //category.setUser(user);
+
+        // copia os atributos da nova categoria e verificar se pertence ao usuário
+        BeanUtils.copyProperties(category, oldCategory, "id", "user");
+        repository.save(oldCategory);
+        return ResponseEntity.ok(oldCategory);
     }
 
     private Category getCategory(Long id, User user) {
         var category = repository.findById(id)
-            .orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada")
-            );
-        if (!category.getUser().equals(user)) {
-            throw new 
-        }
-        return repository.findById(id)
                 .orElseThrow(
                     () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada")
-                );
+                ); // se não encontrar, lança exceção 404
+        if(!category.getUser().equals(user)){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN); // se a categoria não for do usuário, lança exceção 403
+        }
+
+        // retorna a categoria se tudo estiver certo 
+        return category;
     }
 
 }
