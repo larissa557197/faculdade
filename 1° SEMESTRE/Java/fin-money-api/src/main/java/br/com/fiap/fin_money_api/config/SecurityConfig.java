@@ -2,33 +2,35 @@ package br.com.fiap.fin_money_api.config;
 
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig {
 
-    // porque tem que achar um usuario em uma tabela do banco, não em memória
+    @Autowired
+    private AuthFilter authFilter;
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
-        // define o filtro de segurança da aplicação (autorizações e autenticações)
         return http.authorizeHttpRequests(
             auth -> auth
                 //.requestMatchers("/categories/**").hasRole("ADMIN")
-
-                // todas as requisições devem estar autenticadas
+                .requestMatchers("/login/**").permitAll()
                 .anyRequest().authenticated()
         )
-        // desabilita o CSRF (evita erros em requisições POST sem token CSRF)
         .csrf(csrf -> csrf.disable())
-        // usa autenticação básica (usuário e senha no cabeçalho da requisição)
+        .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
         .httpBasic(Customizer.withDefaults())
-        // contrói o filtro de segurança
         .build();
     }
     
@@ -51,13 +53,14 @@ public class SecurityConfig {
     //     return new InMemoryUserDetailsManager(users);
     // }
 
-
-
-    // quando precisar do passwordEncoder vai retornar nessa criptografia
     @Bean
     PasswordEncoder passwordEncoder(){
-        // retorna um codificador de senha usando algoritmo BCrypt
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+        return config.getAuthenticationManager();
     }
 
 }

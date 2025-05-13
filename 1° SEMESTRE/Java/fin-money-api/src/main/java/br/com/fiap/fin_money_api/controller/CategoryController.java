@@ -26,9 +26,7 @@ import br.com.fiap.fin_money_api.repository.CategoryRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
-import lombok.experimental.var;
 import lombok.extern.slf4j.Slf4j;
-
 @RestController
 @RequestMapping("categories")
 @Slf4j
@@ -41,7 +39,6 @@ public class CategoryController {
     @Operation(summary = "Listar categorias", description = "Retorna um array com todas as categorias")
     @Cacheable("categories")
     public List<Category> index(@AuthenticationPrincipal User user) {
-        // retorna todas as categorias do usuário autenticado
         return repository.findByUser(user);
     }
 
@@ -51,26 +48,20 @@ public class CategoryController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public Category create(@RequestBody @Valid Category category, @AuthenticationPrincipal User user) {
         log.info("Cadastrando categoria " + category.getName());
-        // vincula a categoria ao usuário logado
         category.setUser(user);
-        // salva no banco e retorna a categoria criada
         return repository.save(category);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<Category> get(@PathVariable Long id, @AuthenticationPrincipal User user) {
         log.info("Buscando categoria " + id);
-        // busca e retorna categoria por id  
         return ResponseEntity.ok(getCategory(id, user));
     }
-
 
     @DeleteMapping("{id}")
     public ResponseEntity<Category> delete(@PathVariable Long id, @AuthenticationPrincipal User user) {
         log.info("Deletando categoria " + id);
-        // busca e deleta a categoria do banco 
         repository.delete(getCategory(id, user));
-        // retorna HTTP 204 (sem conteúdo) 
         return ResponseEntity.noContent().build();
     }
 
@@ -81,8 +72,6 @@ public class CategoryController {
         var oldCategory = getCategory(id, user);
         //category.setId(id);
         //category.setUser(user);
-
-        // copia os atributos da nova categoria e verificar se pertence ao usuário
         BeanUtils.copyProperties(category, oldCategory, "id", "user");
         repository.save(oldCategory);
         return ResponseEntity.ok(oldCategory);
@@ -92,12 +81,11 @@ public class CategoryController {
         var category = repository.findById(id)
                 .orElseThrow(
                     () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Categoria não encontrada")
-                ); // se não encontrar, lança exceção 404
+                );
         if(!category.getUser().equals(user)){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN); // se a categoria não for do usuário, lança exceção 403
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
-        // retorna a categoria se tudo estiver certo 
         return category;
     }
 

@@ -52,6 +52,7 @@ public class DatabaseSeeder {
         // cria 2 usuários com a mesma senha codificada
         var joao = User.builder().email("joao@fiap.com.br").password(password).build();
         var maria = User.builder().email("maria@fiap.com.br").password(password).build();
+        userRepository.saveAll(List.of(joao, maria));
         
         // salva os usuários no banco de dados
         userRepository.saveAll(List.of(joao, maria));
@@ -63,39 +64,34 @@ public class DatabaseSeeder {
                 Category.builder().name("Transporte").icon("Bus").user(joao).build(),
                 Category.builder().name("Moradia").icon("House").user(joao).build(),
                 Category.builder().name("Saúde").icon("Heart").user(maria).build());
- 
+
+                
         // salva as categorias no banco de dados
         categoryRepository.saveAll(categories);
+       
  
 
         //lista com descrições para transações aleatórias
-        var descriptions = List.of("Aluguel", "99 taxi", "Conta de luz", "Supermercado", "Telefone",
-                "Internet", "Gasolina", "Seguro do carro", "Empréstimo",
-                "Plano de saúde", "Academia", "TV a cabo", "Rastreamento de encomendas",
-                "Alimentação fora de casa", "Farmácia", "Cabeleireiro", "Manutenção do carro",
-                "Educação (curso, faculdade)", "Viagem", "Presentes");
+         var descriptions = List.of("Uber para faculdade", "Remédio", "Café especial", "Livro didático", "Cinema",
+                "Bilhete Único", "Restaurante", "Faculdade", "Plano de Saúde", "Aluguel", "Conta de Água",
+                "Conta de Luz", "Streaming");
 
         // cria uma lista para armazenar as transações
         var transactions = new ArrayList<Transaction>();
  
-        // gera 50 transações aleatórias 
+        
         for (int i = 0; i < 50; i++) {
             transactions.add(Transaction.builder()
-                    // seleciona aleatoriamente uma descrição da lista
                     .description(descriptions.get(new Random().nextInt(descriptions.size())))
-                    // gera um valor entre 10 e 510 como valor da transação
                     .amount(BigDecimal.valueOf(10 + new Random().nextDouble() * 500))
-                    // define uma data nos últimos 30 dias
                     .date(LocalDate.now().minusDays(new Random().nextInt(30)))
-                    // define o tipo como despesa
                     .type(TransactionType.EXPENSE)
-                    // seleciona aleatoriamente uma categoria craiada anteriormente
                     .category(categories.get(new Random().nextInt(categories.size())))
-                    // finaliza a contrução da transação
                     .build());
         }
-        
-        // salva todas as transações geradas no banco de dados
+
         transactionRepository.saveAll(transactions);
+
+    
     }
 }

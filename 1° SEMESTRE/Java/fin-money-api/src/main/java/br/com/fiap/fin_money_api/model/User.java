@@ -37,25 +37,19 @@ public class User implements UserDetails {
 
     @Email(message = "email inválido")
     @NotBlank(message = "campo obrigatório")
-    // altero os parametros que o jpa vai usar pra criar o campo
-    @Column( unique =  true)
+    @Column(unique = true)
     private String email;
 
-    // senha com no minimo 5 caracteres
     @Size(min = 5)
     private String password;
 
-
-    // define a autoridade (papel) do usuário no sistema -> no caso todos são "USER"
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // retorna uma lista de autorizações
-        return List.of(new SimpleGrantedAuthority("USER")); // todo mundo é usuário "NORMAL"
+        return List.of(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
     public String getUsername() {
-        // retorna o "username" para autenticação, que no caso é o email
         return email;
     }
     
