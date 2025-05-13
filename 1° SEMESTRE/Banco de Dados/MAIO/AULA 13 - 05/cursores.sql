@@ -102,7 +102,7 @@ BEGIN
     FOR x IN c_consulta_cliente LOOP
         dbms_output.put_line('Cliente: '
                              || x.cod_cliente
-                             || 'Nome: '
+                             || ' - Nome: '
                              || x.nom_cliente);
     END LOOP;
 END;
