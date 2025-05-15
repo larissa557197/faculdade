@@ -1,4 +1,3 @@
-
 package br.com.fiap.fin_money_api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import br.com.fiap.fin_money_api.model.Token;
 import br.com.fiap.fin_money_api.model.User;
 import br.com.fiap.fin_money_api.service.TokenService;
 
-
 @RestController
 public class AuthController {
 
@@ -22,15 +20,12 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-    
-    @PostMapping("/login")
-    public Token login(@RequestBody Credentials credendials){ // DTO
-        
-        var auth = new UsernamePasswordAuthenticationToken(credentials.email(), credentials.password());
 
+    @PostMapping("/login")
+    public Token login(@RequestBody Credentials credentials){
+        var auth = new UsernamePasswordAuthenticationToken(credentials.email(), credentials.password());
         var user = (User) authenticationManager.authenticate(auth).getPrincipal();
-        
-        // retorna o token recebido no corpo da requisição
+
         return tokenService.createToken(user);
     }
     
