@@ -1,0 +1,16 @@
+REVISÃO - ÚLTIMO SEMESTRE - MOBILE
+
+UseEffect - rocks - x coisas acontecer alterar o UI
+
+expo - framework de um framework pra facilitar a instalação de várias extensões
+
+npm - o que esta na sua maquina
+
+1º comando: npx create-expo-app@latest --template
+Blank - o expo ja exportado
+
+* PRINTS NO CHAT DO TEAMS
+
+rodando o codigo - npx expo start
+
+* sem querer dei uma dormida
