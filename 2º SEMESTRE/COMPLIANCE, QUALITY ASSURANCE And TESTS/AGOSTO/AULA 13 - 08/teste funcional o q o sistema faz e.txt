@@ -1,0 +1,2 @@
+teste funcional: o q o sistema faz em questão de funcionalidade
+teste n funcional: o quão bom o sistema se comporta
