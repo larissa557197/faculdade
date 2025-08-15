@@ -34,7 +34,7 @@
 ---
 
 ### **🛡 NANOS / Cybersecurity**
-- Anotações e conteúdos relacionados a **segurança da informação e cibersegurança**.
+- Anotações e conteúdos relacionados a **cibersegurança**.
 
 ---
 
