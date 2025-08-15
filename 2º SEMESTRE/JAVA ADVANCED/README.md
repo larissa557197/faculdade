@@ -6,8 +6,8 @@ Desde o dia **05 de agosto**, toda **quinta-feira** desenvolvemos um projeto em 
 
 | Data        | Projeto                         | Link                                                                 |
 |-------------|---------------------------------|----------------------------------------------------------------------|
-| 07/08/2025  | Superpoderes                    | [Acessar](https://github.com/usuario/powerfail-ranking.git)          |
-| 14/08/2025  | Ovni                            | [Acessar](https://github.com/usuario/ovnis-projeto.git)              |
+| 07/08/2025  | Superpoderes                    | [Acessar](https://github.com/larissa557197/powerfail-ranking.git)    |
+| 14/08/2025  | Ovni                            | [Acessar](https://github.com/larissa557197/ovnis-projeto.git)        |
 | ...         | ...                             | ...                                                                  |
 
 ## 📌 Observações
